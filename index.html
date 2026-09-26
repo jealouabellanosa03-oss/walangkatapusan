@@ -1,0 +1,3533 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    >
+
+    <title>
+      CycleCare - Menstrual Health Tracker
+    </title>
+
+    <link
+      rel="stylesheet"
+      href="style.css"
+    >
+
+
+  <style id="cyclecare-critical-fix">
+
+    /* Prevent inactive pages from showing underneath the active page. */
+    .screen {
+      display: none !important;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .screen.active {
+      display: block !important;
+    }
+
+    /* Keep the splash logo inside its own area. */
+    #splash .splashLogo {
+      width: 120px !important;
+      height: 120px !important;
+      max-width: 120px !important;
+      max-height: 120px !important;
+      margin: 0 auto 16px !important;
+      overflow: hidden !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    #splash .splashLogo img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
+
+    /* Login content must start below the header. */
+    #login .authPage {
+      position: relative;
+      z-index: 2;
+    }
+
+    #login .authIcon {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 42px !important;
+      line-height: 1 !important;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+
+    /* PROFILE PHOTO */
+    .profilePhotoWrap {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+    }
+    .profileAvatar {
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .profileAvatar img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:50%;
+      display:none;
+    }
+    .profilePhotoPlaceholder {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      height:100%;
+    }
+    .profilePhotoBtn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 14px;
+      border-radius:12px;
+      background:#F65AA8;
+      color:#fff;
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .devAvatar img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:50%;
+      display:block;
+    }
+    .devPhotoPlaceholder {
+      display:none !important;
+    }
+  
+
+    /* SYMPTOM ADD BUTTON + MODAL */
+    .symAddFullBtn {
+      width: 100%;
+      min-height: 56px;
+      border: 0;
+      border-radius: 16px;
+      background: #eadcf7;
+      color: #7650B8;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 14px;
+      box-sizing: border-box;
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    .symAddFullBtn:active {
+      transform: scale(.98);
+      background: #e2d1f3;
+    }
+
+    .symptomAddModal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(38, 24, 52, .38);
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    .symptomAddModal.show {
+      display: flex;
+    }
+
+    .symptomAddSheet {
+      width: 100%;
+      max-width: 520px;
+      background: #fff;
+      border-radius: 24px 24px 18px 18px;
+      padding: 22px 18px 18px;
+      box-sizing: border-box;
+      box-shadow: 0 -10px 35px rgba(0,0,0,.16);
+      position: relative;
+    }
+
+    .symptomAddClose {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      background: #f4eef9;
+      color: #7650B8;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .symptomAddTitle {
+      color: #7650B8;
+      font-size: 21px;
+      font-weight: 900;
+      margin: 4px 44px 4px 2px;
+    }
+
+    .symptomAddSubtitle {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.45;
+      margin: 0 2px 14px;
+    }
+
+    .symptomAddInput {
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+    }
+
+    .symptomDoneBtn {
+      width: 100%;
+      min-height: 52px;
+      margin: 0;
+    }
+
+    .saveWrap {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 5.5% 18px;
+    }
+
+    .saveWrap .primary {
+      width: 100%;
+      max-width: none;
+      box-sizing: border-box;
+      margin: 0;
+    }
+</style>
+
+  </head>
+
+
+  <body>
+
+  <div id="app">
+
+
+  <!-- =====================================================
+      SPLASH
+  ===================================================== -->
+
+  <section
+    id="splash"
+    class="screen active"
+  >
+
+    <div class="splashWrap">
+
+      <div class="logo">
+
+        <svg viewBox="0 0 100 100">
+
+          <rect
+            x="18"
+            y="18"
+            width="64"
+            height="68"
+            rx="10"
+            fill="#fff"
+            stroke="#F65AA8"
+            stroke-width="4"
+          />
+
+          <line
+            x1="18"
+            y1="37"
+            x2="82"
+            y2="37"
+            stroke="#F65AA8"
+            stroke-width="4"
+          />
+
+          <line
+            x1="35"
+            y1="10"
+            x2="35"
+            y2="27"
+            stroke="#7650B8"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+
+          <line
+            x1="65"
+            y1="10"
+            x2="65"
+            y2="27"
+            stroke="#7650B8"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="
+              M50 68
+              C38 58 31 50 38 44
+              C43 40 49 44 50 49
+              C52 44 58 40 63 44
+              C70 50 62 59 50 68Z
+            "
+            fill="#F65AA8"
+          />
+
+        </svg>
+
+      </div>
+
+
+      <div class="splashTitle">
+        CycleCare
+      </div>
+
+
+      <div class="splashSub">
+        Menstrual Health Tracker
+      </div>
+
+
+      <div class="splashText">
+
+        Track your cycle, understand your symptoms,
+
+        <br>
+
+        and take better care of yourself.
+
+      </div>
+
+
+      <button
+        class="primary"
+        type="button"
+        onclick="show('login')"
+      >
+        Get Started
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      LOGIN
+  ===================================================== -->
+
+  <section
+    id="login"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('splash')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        Log In
+      </div>
+
+
+      <span class="spacer"></span>
+
+    </header>
+
+
+    <div class="authPage">
+
+      <div class="card authCard">
+
+
+        <div class="authIcon">
+          ♡
+        </div>
+
+
+        <h2>
+          Welcome to CycleCare!
+        </h2>
+
+
+        <p>
+          Enter your information to personalize your cycle tracking.
+        </p>
+
+
+        <!-- NAME -->
+
+        <label for="loginFirstName">
+          First Name
+        </label>
+
+        <input
+          class="input"
+          type="text"
+          id="loginFirstName"
+          placeholder="Enter your first name"
+          autocomplete="given-name"
+        >
+
+        <label for="loginMiddleName">
+          Middle Name
+        </label>
+
+        <input
+          class="input"
+          type="text"
+          id="loginMiddleName"
+          placeholder="Enter your middle name"
+          autocomplete="additional-name"
+        >
+
+        <label for="loginLastName">
+          Last Name
+        </label>
+
+        <input
+          class="input"
+          type="text"
+          id="loginLastName"
+          placeholder="Enter your last name"
+          autocomplete="family-name"
+        >
+
+        <!-- Hidden combined name used by the existing CycleCare JavaScript -->
+        <input
+          type="hidden"
+          id="loginName"
+        >
+
+
+        <!-- AGE -->
+
+        <label for="loginAge">
+          Age
+        </label>
+
+        <input
+          class="input"
+          type="number"
+          id="loginAge"
+          placeholder="Enter your age"
+          min="10"
+          max="100"
+        >
+
+
+        <!-- CYCLE LENGTH -->
+
+        <label for="loginCycleLength">
+          Average Cycle Length
+        </label>
+
+        <select
+          class="input"
+          id="loginCycleLength"
+        >
+
+          <option value="">
+            Select cycle length
+          </option>
+
+          <option value="21">21 days</option>
+          <option value="22">22 days</option>
+          <option value="23">23 days</option>
+          <option value="24">24 days</option>
+          <option value="25">25 days</option>
+          <option value="26">26 days</option>
+          <option value="27">27 days</option>
+          <option value="28">28 days</option>
+          <option value="29">29 days</option>
+          <option value="30">30 days</option>
+          <option value="31">31 days</option>
+          <option value="32">32 days</option>
+          <option value="33">33 days</option>
+          <option value="34">34 days</option>
+          <option value="35">35 days</option>
+
+        </select>
+
+
+        <!-- PERIOD LENGTH -->
+
+        <label for="loginPeriodLength">
+          Period Length
+        </label>
+
+        <select
+          class="input"
+          id="loginPeriodLength"
+        >
+
+          <option value="">
+            Select period length
+          </option>
+
+          <option value="3">3 days</option>
+          <option value="4">4 days</option>
+          <option value="5">5 days</option>
+          <option value="6">6 days</option>
+          <option value="7">7 days</option>
+
+        </select>
+
+
+        <!-- LAST PERIOD -->
+
+        <label for="loginLastPeriod">
+          Last Period Start Date
+        </label>
+
+        <input
+          class="input"
+          type="date"
+          id="loginLastPeriod"
+        >
+
+
+        <!-- OVULATION -->
+
+        <div class="ovulationBox">
+
+          <div class="ovulationTitle">
+            🌸 Ovulation Cycle
+          </div>
+
+          <div
+            class="ovulationText"
+            id="loginOvulationInfo"
+          >
+            Enter your cycle length and last period date
+            to calculate your estimated ovulation date.
+          </div>
+
+        </div>
+
+
+        <button
+          class="secondary"
+          type="button"
+          onclick="calculateLoginOvulation()"
+        >
+          Calculate Ovulation
+        </button>
+
+
+        <button
+          class="primary authButton"
+          type="button"
+          onclick="prepareLoginName(); loginUser()"
+        >
+          Log In
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      HOME
+  ===================================================== -->
+
+  <section
+    id="home"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="openDrawer()"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
+
+
+      <div class="title">
+
+        CycleCare
+
+        <div class="sub">
+          Menstrual Health Tracker
+        </div>
+
+      </div>
+
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="
+          toast(
+            currentLang === 'Bisaya (Cebuano)'
+              ? 'Walay bag-ong pahibalo'
+              : 'No new notifications'
+          )
+        "
+        aria-label="Notifications"
+      >
+        ♧
+      </button>
+
+    </header>
+
+
+    <div class="homePad">
+
+
+      <!-- NEXT PERIOD -->
+
+      <div class="card nextCard">
+
+        <div class="periodIcon">
+
+          <svg viewBox="0 0 100 100">
+
+            <rect
+              x="20"
+              y="18"
+              width="60"
+              height="68"
+              rx="9"
+              fill="#fff"
+              stroke="#F65AA8"
+              stroke-width="4"
+            />
+
+            <line
+              x1="20"
+              y1="37"
+              x2="80"
+              y2="37"
+              stroke="#F65AA8"
+              stroke-width="4"
+            />
+
+            <line
+              x1="36"
+              y1="10"
+              x2="36"
+              y2="26"
+              stroke="#7650B8"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+
+            <line
+              x1="64"
+              y1="10"
+              x2="64"
+              y2="26"
+              stroke="#7650B8"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+
+            <path
+              d="
+                M50 70
+                C39 61 34 54 39 49
+                C44 45 49 49 50 54
+                C52 49 57 45 62 49
+                C67 54 61 61 50 70Z
+              "
+              fill="#F65AA8"
+            />
+
+          </svg>
+
+        </div>
+
+
+        <div>
+
+          <div class="nextSmall">
+            Next Period
+          </div>
+
+
+          <div
+            class="nextDate"
+            id="nextDate"
+          >
+            Set your period date
+          </div>
+
+
+          <div
+            class="nextLeft"
+            id="daysLeft"
+          >
+            Track your cycle to get started
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- TRACK CYCLE -->
+
+      <button
+        class="homeBtn pink"
+        type="button"
+        onclick="show('track')"
+      >
+
+        <span class="ico">
+          ▣
+        </span>
+
+        Track Cycle
+
+      </button>
+
+
+      <!-- SYMPTOMS -->
+
+      <button
+        class="homeBtn purple"
+        type="button"
+        onclick="show('symptoms')"
+      >
+
+        <span class="ico">
+          ♥
+        </span>
+
+        Symptoms
+
+      </button>
+
+
+      <!-- CALENDAR -->
+
+      <button
+        class="homeBtn purple"
+        type="button"
+        onclick="show('calendar')"
+      >
+
+        <span class="ico">
+          ▦
+        </span>
+
+        Calendar
+
+      </button>
+
+
+      <!-- REMINDERS -->
+
+      <button
+        class="homeBtn pink"
+        type="button"
+        onclick="show('reminders')"
+      >
+
+        <span class="ico">
+          ♟
+        </span>
+
+        Reminders
+
+      </button>
+
+
+      <!-- HISTORY -->
+
+      <button
+        class="homeBtn purple"
+        type="button"
+        onclick="show('history')"
+      >
+
+        <span class="ico">
+          ▥
+        </span>
+
+        History
+
+      </button>
+
+
+      <!-- MENSTRUAL TIPS -->
+
+      <button
+        class="homeBtn pink"
+        type="button"
+        onclick="show('tips')"
+      >
+
+        <span class="ico">
+          🌸
+        </span>
+
+        Menstrual Tips
+
+      </button>
+
+
+      <!-- QUIZ -->
+
+      <button
+        class="homeBtn purple"
+        type="button"
+        onclick="show('quiz')"
+      >
+
+        <span class="ico">
+          ❓
+        </span>
+
+        Quiz
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      CALENDAR
+  ===================================================== -->
+
+  <section
+    id="calendar"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        Calendar
+      </div>
+
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('profile')"
+        aria-label="Profile"
+      >
+        ⚙
+      </button>
+
+    </header>
+
+
+    <div class="contentPad">
+
+
+      <div class="monthRow">
+
+        <button
+          class="monthArrow"
+          type="button"
+          onclick="month(-1)"
+          aria-label="Previous month"
+        >
+          ‹
+        </button>
+
+
+        <b id="monthTitle">
+          August 2026
+        </b>
+
+
+        <button
+          class="monthArrow"
+          type="button"
+          onclick="month(1)"
+          aria-label="Next month"
+        >
+          ›
+        </button>
+
+      </div>
+
+
+      <div class="week">
+
+        <span>S</span>
+        <span>M</span>
+        <span>T</span>
+        <span>W</span>
+        <span>T</span>
+        <span>F</span>
+        <span>S</span>
+
+      </div>
+
+
+      <div
+        class="cal"
+        id="calendarGrid"
+      ></div>
+
+
+      <div class="card legend">
+
+        <div class="legendRow">
+          <i class="dot p"></i>
+          Period
+        </div>
+
+        <div class="legendRow">
+          <i class="dot o"></i>
+          Ovulation
+        </div>
+
+        <div class="legendRow">
+          <i class="dot t"></i>
+          Today
+        </div>
+
+        <div class="legendRow">
+          <i class="dot s"></i>
+          Symptoms
+        </div>
+
+        <div class="legendRow">
+          <i class="dot r"></i>
+          Reminders
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      SYMPTOMS
+  ===================================================== -->
+
+  <section
+    id="symptoms"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        Symptoms
+      </div>
+
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="saveSymptoms()"
+        aria-label="Save symptoms"
+      >
+        ▣
+      </button>
+
+    </header>
+
+
+    <div class="symCard card">
+
+      <div class="prompt">
+        How are you feeling today?
+      </div>
+
+      <div id="symptomList"></div>
+
+
+      <!-- ADD SYMPTOM -->
+      <button
+        class="symAddFullBtn"
+        type="button"
+        onclick="openSymptomAdd()"
+      >
+        ＋ Add Symptom
+      </button>
+
+    </div>
+
+    <!-- ADD SYMPTOM MODAL -->
+    <div
+      class="symptomAddModal"
+      id="symptomAddModal"
+      onclick="if(event.target === this) closeSymptomAdd()"
+    >
+      <div class="symptomAddSheet">
+        <button
+          class="symptomAddClose"
+          type="button"
+          onclick="closeSymptomAdd()"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+        <div class="symptomAddTitle">
+          Add Symptom
+        </div>
+
+        <div class="symptomAddSubtitle">
+          Enter the symptom you are experiencing today.
+        </div>
+
+        <input
+          class="input symptomAddInput"
+          type="text"
+          id="customSymptomInput"
+          placeholder="Enter symptom"
+          maxlength="30"
+          onkeydown="
+            if (event.key === 'Enter') {
+              finishAddingSymptom();
+              event.preventDefault();
+            }
+          "
+        >
+
+        <button
+          class="primary symptomDoneBtn"
+          type="button"
+          onclick="finishAddingSymptom()"
+        >
+          Done
+        </button>
+      </div>
+    </div>
+
+    <div class="saveWrap">
+
+      <button
+        class="primary"
+        type="button"
+        onclick="saveSymptoms()"
+      >
+        Save
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      REMINDERS
+  ===================================================== -->
+
+  <section
+    id="reminders"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        Reminders
+      </div>
+
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="addReminder()"
+        aria-label="Add reminder"
+      >
+        ＋
+      </button>
+
+    </header>
+
+
+    <div class="remList">
+
+
+      <div class="rem card">
+
+        <div class="remIcon">
+          ♟
+        </div>
+
+        <div class="remInfo">
+
+          <div class="remTitle">
+            Period Reminder
+          </div>
+
+          <div class="remSub">
+            1 day before
+          </div>
+
+        </div>
+
+        <div
+          class="switch on"
+          onclick="toggleSwitch(this)"
+          role="button"
+          tabindex="0"
+        >
+          <i></i>
+        </div>
+
+      </div>
+
+
+      <div class="rem card">
+
+        <div class="remIcon">
+          ✿
+        </div>
+
+        <div class="remInfo">
+
+          <div class="remTitle">
+            Ovulation Reminder
+          </div>
+
+          <div class="remSub">
+            On ovulation day
+          </div>
+
+        </div>
+
+        <div
+          class="switch on"
+          onclick="toggleSwitch(this)"
+          role="button"
+          tabindex="0"
+        >
+          <i></i>
+        </div>
+
+      </div>
+
+
+      <div class="rem card">
+
+        <div class="remIcon">
+          💧
+        </div>
+
+        <div class="remInfo">
+
+          <div class="remTitle">
+            Drink Water
+          </div>
+
+          <div class="remSub">
+            Every day – 8:00 AM
+          </div>
+
+        </div>
+
+        <div
+          class="switch on"
+          onclick="toggleSwitch(this)"
+          role="button"
+          tabindex="0"
+        >
+          <i></i>
+        </div>
+
+      </div>
+
+
+      <div class="rem card">
+
+        <div class="remIcon">
+          💊
+        </div>
+
+        <div class="remInfo">
+
+          <div class="remTitle">
+            Take Medication
+          </div>
+
+          <div class="remSub">
+            Every day – 9:00 AM
+          </div>
+
+        </div>
+
+        <div
+          class="switch on"
+          onclick="toggleSwitch(this)"
+          role="button"
+          tabindex="0"
+        >
+          <i></i>
+        </div>
+
+      </div>
+
+
+      <div
+        class="addRem"
+        onclick="addReminder()"
+        role="button"
+        tabindex="0"
+      >
+
+        <b>
+          ＋
+        </b>
+
+        Add Reminder
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      TRACK CYCLE
+  ===================================================== -->
+
+  <section
+    id="track"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        Track Cycle
+      </div>
+
+
+      <span class="spacer"></span>
+
+    </header>
+
+
+    <div class="contentPad">
+
+      <div
+        class="card"
+        style="padding:16px;margin-bottom:12px"
+      >
+
+        <div
+          style="
+            font-size:13px;
+            font-weight:800;
+            color:var(--purple2);
+            margin-bottom:8px
+          "
+        >
+          Period Start Date
+        </div>
+
+
+        <input
+          class="input"
+          type="date"
+          id="periodDate"
+        >
+
+
+        <div
+          style="
+            font-size:13px;
+            font-weight:800;
+            color:var(--purple2);
+            margin:16px 0 8px
+          "
+        >
+          Period Length
+        </div>
+
+
+        <select
+          class="input"
+          id="periodLength"
+        >
+
+          <option value="3">
+            3 days
+          </option>
+
+          <option value="4">
+            4 days
+          </option>
+
+          <option
+            value="5"
+            selected
+          >
+            5 days
+          </option>
+
+          <option value="6">
+            6 days
+          </option>
+
+          <option value="7">
+            7 days
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        class="primary"
+        type="button"
+        onclick="saveCycle()"
+      >
+        Save Cycle
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      HISTORY
+  ===================================================== -->
+
+  <section
+    id="history"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        History
+      </div>
+
+
+      <span class="spacer"></span>
+
+    </header>
+
+
+    <div
+      class="list"
+      id="historyList"
+    ></div>
+
+  </section>
+
+
+  <!-- =====================================================
+      MENSTRUAL TIPS
+  ===================================================== -->
+
+  <section
+    id="tips"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        Menstrual Tips
+      </div>
+
+
+      <span class="spacer"></span>
+
+    </header>
+
+
+    <div class="infoPage">
+
+
+      <div class="card infoHero">
+
+        <div class="big">
+          🌸
+        </div>
+
+        <p>
+          Simple tips for menstrual health and comfort.
+        </p>
+
+      </div>
+
+
+      <!-- STAY HYDRATED -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Stay Hydrated',
+            '💧',
+            'Drink enough water throughout the day to support hydration and overall well-being.',
+            'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=900&q=85"
+            alt="Glass of drinking water"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Stay Hydrated
+          </h4>
+
+          <p>
+            Drink enough water throughout the day to support hydration and overall well-being.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- EAT NUTRITIOUS FOODS -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Eat Nutritious Foods',
+            '🥗',
+            'Choose balanced meals that include vegetables, fruits, protein, and whole grains.',
+            'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=900&q=85"
+            alt="Nutritious vegetables and food"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Eat Nutritious Foods
+          </h4>
+
+          <p>
+            Choose balanced meals that include vegetables, fruits, protein, and whole grains.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- GET ENOUGH REST -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Get Enough Rest',
+            '😴',
+            'Give your body enough time to rest and recover, especially when experiencing menstrual discomfort.',
+            'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=900&q=85"
+            alt="Person resting"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Get Enough Rest
+          </h4>
+
+          <p>
+            Give your body enough time to rest and recover, especially when experiencing menstrual discomfort.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- KEEP GOOD HYGIENE -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Keep Good Hygiene',
+            '🧼',
+            'Change menstrual products regularly and keep the body clean and comfortable.',
+            'https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?auto=format&fit=crop&w=900&q=85"
+            alt="Personal hygiene products"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Keep Good Hygiene
+          </h4>
+
+          <p>
+            Change menstrual products regularly and keep the body clean and comfortable.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- TRACK YOUR SYMPTOMS -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Track Your Symptoms',
+            '📝',
+            'Recording symptoms can help you understand patterns throughout your menstrual cycle.',
+            'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=900&q=85"
+            alt="Writing in a notebook"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Track Your Symptoms
+          </h4>
+
+          <p>
+            Recording symptoms can help you understand patterns throughout your menstrual cycle.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- USE GENTLE HEAT -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Use Gentle Heat',
+            '🔥',
+            'A warm heating pad or warm compress may help ease menstrual cramps and provide comfort.',
+            'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=900&q=85"
+            alt="Warm comfort at home"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Use Gentle Heat
+          </h4>
+
+          <p>
+            A warm heating pad or warm compress may help ease menstrual cramps and provide comfort.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- STAY PHYSICALLY ACTIVE -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Stay Physically Active',
+            '🚶',
+            'Gentle movement such as walking, stretching, or light exercise can help you stay active during your period.',
+            'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=85"
+            alt="Gentle physical activity"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Stay Physically Active
+          </h4>
+
+          <p>
+            Gentle movement such as walking, stretching, or light exercise can help you stay active during your period.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- MANAGE STRESS -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Manage Stress',
+            '🧘',
+            'Take time to relax through breathing exercises, quiet activities, or other healthy ways of managing stress.',
+            'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=85"
+            alt="Relaxation and meditation"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Manage Stress
+          </h4>
+
+          <p>
+            Take time to relax through breathing exercises, quiet activities, or other healthy ways of managing stress.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- CHOOSE COMFORTABLE CLOTHING -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Choose Comfortable Clothing',
+            '👕',
+            'Wear comfortable, breathable clothing that helps you feel relaxed during your menstrual days.',
+            'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=85"
+            alt="Comfortable clothing"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Choose Comfortable Clothing
+          </h4>
+
+          <p>
+            Wear comfortable, breathable clothing that helps you feel relaxed during your menstrual days.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- PREPARE YOUR PERIOD ESSENTIALS -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Prepare Your Period Essentials',
+            '🎒',
+            'Keep menstrual products and other personal essentials available so you are prepared when your period starts.',
+            'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=900&q=85"
+            alt="Personal care essentials"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Prepare Your Period Essentials
+          </h4>
+
+          <p>
+            Keep menstrual products and other personal essentials available so you are prepared when your period starts.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- GET ENOUGH IRON-RICH FOODS -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Get Enough Iron-Rich Foods',
+            '🥬',
+            'Include iron-containing foods such as leafy greens, beans, eggs, meat, or fortified foods as part of balanced meals.',
+            'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85"
+            alt="Healthy balanced meal"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Get Enough Iron-Rich Foods
+          </h4>
+
+          <p>
+            Include iron-containing foods such as leafy greens, beans, eggs, meat, or fortified foods as part of balanced meals.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- LIMIT TOO MUCH CAFFEINE -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Limit Too Much Caffeine',
+            '☕',
+            'If caffeine makes you feel uncomfortable, consider moderating coffee, energy drinks, and other caffeinated beverages.',
+            'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85"
+            alt="Cup of coffee"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Limit Too Much Caffeine
+          </h4>
+
+          <p>
+            If caffeine makes you feel uncomfortable, consider moderating coffee, energy drinks, and other caffeinated beverages.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- LISTEN TO YOUR BODY -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Listen to Your Body',
+            '💗',
+            'Notice how you feel and give yourself time to rest when your body needs extra care during your cycle.',
+            'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85"
+            alt="Self-care and relaxation"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Listen to Your Body
+          </h4>
+
+          <p>
+            Notice how you feel and give yourself time to rest when your body needs extra care during your cycle.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- MAINTAIN A REGULAR SLEEP ROUTINE -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Maintain a Regular Sleep Routine',
+            '🌙',
+            'Try to keep a consistent sleep and wake schedule to support adequate rest and recovery.',
+            'https://images.unsplash.com/photo-1511295742362-92c96b1cf484?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1511295742362-92c96b1cf484?auto=format&fit=crop&w=900&q=85"
+            alt="Sleep and bedtime"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Maintain a Regular Sleep Routine
+          </h4>
+
+          <p>
+            Try to keep a consistent sleep and wake schedule to support adequate rest and recovery.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- KNOW WHEN TO SEEK HELP -->
+
+      <div
+        class="card tip clickableTip"
+        onclick="
+          openTip(
+            'Know When to Seek Help',
+            '🩺',
+            'If menstrual pain or bleeding is severe, unusual, or interfering with daily activities, consider talking with a qualified healthcare professional.',
+            'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85'
+          )
+        "
+      >
+
+        <div class="tipImagePreview">
+
+          <img
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85"
+            alt="Healthcare consultation"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="tipText">
+
+          <h4>
+            Know When to Seek Help
+          </h4>
+
+          <p>
+            If menstrual pain or bleeding is severe, unusual, or interfering with daily activities, consider talking with a qualified healthcare professional.
+          </p>
+
+          <span class="readTip">
+            Tap to view ›
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      MENSTRUAL TIP DETAIL POPUP
+  ===================================================== -->
+
+  <div
+    class="tipModal"
+    id="tipModal"
+    onclick="closeTipOutside(event)"
+  >
+
+    <div class="tipModalBox">
+
+      <button
+        class="tipClose"
+        type="button"
+        onclick="closeTip()"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+
+      <img
+        id="tipModalImage"
+        class="tipModalImage"
+        src=""
+        alt="Menstrual tip"
+      >
+
+
+      <div class="tipModalContent">
+
+        <div
+          id="tipModalIcon"
+          class="tipModalIcon"
+        >
+          💧
+        </div>
+
+
+        <h2
+          id="tipModalTitle"
+        >
+          Stay Hydrated
+        </h2>
+
+
+        <p
+          id="tipModalText"
+        >
+          Drink enough water throughout the day.
+        </p>
+
+
+        <button
+          class="primary"
+          type="button"
+          onclick="closeTip()"
+        >
+          Done
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+      QUIZ
+  ===================================================== -->
+
+  <section
+    id="quiz"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        Quiz
+      </div>
+
+
+      <span class="spacer"></span>
+
+    </header>
+
+
+    <div class="infoPage">
+
+      <div class="card infoHero">
+
+        <div class="big">
+          ❓
+        </div>
+
+
+        <p>
+          Test your knowledge about menstrual health.
+        </p>
+
+
+        <p>
+          10 Easy • 15 Intermediate • 20 Challenge
+        </p>
+
+      </div>
+
+
+      <div
+        id="quizContainer"
+      ></div>
+
+
+      <div class="card quizActions">
+
+        <button
+          class="primary"
+          type="button"
+          onclick="submitQuiz()"
+        >
+          Submit Quiz
+        </button>
+
+
+        <button
+          class="secondary"
+          type="button"
+          onclick="viewQuizScore()"
+        >
+          View Score
+        </button>
+
+      </div>
+
+
+      <div
+        class="card quizScoreCard"
+        id="quizScoreCard"
+      >
+
+        <div class="quizScoreIcon">
+          🏆
+        </div>
+
+
+        <h2>
+          Quiz Result
+        </h2>
+
+
+        <div
+          class="quizTotalScore"
+          id="quizTotalScore"
+        >
+          0 / 45
+        </div>
+
+
+        <div
+          class="quizScoreMessage"
+          id="quizScoreMessage"
+        >
+          Submit the quiz to see your score.
+        </div>
+
+
+        <div class="quizScoreRows">
+
+          <div class="quizScoreRow">
+
+            <span>
+              Easy
+            </span>
+
+            <strong id="easyScore">
+              0 / 10
+            </strong>
+
+          </div>
+
+
+          <div class="quizScoreRow">
+
+            <span>
+              Intermediate
+            </span>
+
+            <strong id="intermediateScore">
+              0 / 15
+            </strong>
+
+          </div>
+
+
+          <div class="quizScoreRow">
+
+            <span>
+              Challenge
+            </span>
+
+            <strong id="challengeScore">
+              0 / 20
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      PROFILE
+  ===================================================== -->
+
+  <section
+    id="profile"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <span class="spacer"></span>
+
+      <div class="title">
+        Profile
+      </div>
+
+      <span class="spacer"></span>
+
+    </header>
+
+
+    <div class="profileCard card">
+
+      <div class="profilePhotoWrap">
+
+        <div class="avatar profileAvatar">
+          <img
+            id="profilePhotoImg"
+            src=""
+            alt="Profile photo"
+          >
+          <div
+            class="profilePhotoPlaceholder"
+            id="profilePhotoPlaceholder"
+          >
+            👩
+          </div>
+        </div>
+
+        <label
+          class="profilePhotoBtn"
+          for="profilePhotoInput"
+        >
+          📷 Add Photo
+        </label>
+
+        <input
+          id="profilePhotoInput"
+          type="file"
+          accept="image/*"
+          style="display:none"
+        >
+
+      </div>
+
+
+      <div>
+
+        <div
+          class="profileName"
+          id="profileName"
+        >
+          User
+        </div>
+
+
+        <div class="profileSubtitle">
+          Personal Information
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card profileInfoCard">
+
+      <div class="profileSectionTitle">
+
+        <div class="credentialsIcon">
+          ♙
+        </div>
+
+
+        <div>
+
+          <div class="credentialsTitle">
+            My Credentials
+          </div>
+
+          <div class="credentialsSubtitle">
+            Your cycle information
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="profileInfoRow">
+
+        <div class="credentialLeft">
+
+          <div class="credentialIcon pinkIcon">
+            👤
+          </div>
+
+
+          <div>
+
+            <span class="profileLabel">
+              Full Name
+            </span>
+
+            <span class="credentialHint">
+              Your name
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <span
+          class="profileValue"
+          id="profileFullName"
+        >
+          -
+        </span>
+
+      </div>
+
+
+      <div class="profileInfoRow">
+
+        <div class="credentialLeft">
+
+          <div class="credentialIcon purpleIcon">
+            🎂
+          </div>
+
+
+          <div>
+
+            <span class="profileLabel">
+              Age
+            </span>
+
+            <span class="credentialHint">
+              Your age
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <span
+          class="profileValue"
+          id="profileAge"
+        >
+          -
+        </span>
+
+      </div>
+
+
+      <div class="profileInfoRow">
+
+        <div class="credentialLeft">
+
+          <div class="credentialIcon pinkIcon">
+            🔄
+          </div>
+
+
+          <div>
+
+            <span class="profileLabel">
+              Average Cycle Length
+            </span>
+
+            <span class="credentialHint">
+              Cycle duration
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <span
+          class="profileValue"
+          id="profileCycle"
+        >
+          -
+        </span>
+
+      </div>
+
+
+      <div class="profileInfoRow">
+
+        <div class="credentialLeft">
+
+          <div class="credentialIcon purpleIcon">
+            🩷
+          </div>
+
+
+          <div>
+
+            <span class="profileLabel">
+              Period Length
+            </span>
+
+            <span class="credentialHint">
+              Period duration
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <span
+          class="profileValue"
+          id="profilePeriod"
+        >
+          -
+        </span>
+
+      </div>
+
+
+      <div class="profileInfoRow">
+
+        <div class="credentialLeft">
+
+          <div class="credentialIcon pinkIcon">
+            📅
+          </div>
+
+
+          <div>
+
+            <span class="profileLabel">
+              Last Period
+            </span>
+
+            <span class="credentialHint">
+              Most recent start date
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <span
+          class="profileValue"
+          id="profileLastPeriod"
+        >
+          -
+        </span>
+
+      </div>
+
+
+      <div class="profileInfoRow ovulationRow">
+
+        <div class="credentialLeft">
+
+          <div class="credentialIcon purpleIcon">
+            🌸
+          </div>
+
+
+          <div>
+
+            <span class="profileLabel">
+              Estimated Ovulation
+            </span>
+
+            <span class="credentialHint">
+              Estimated date
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <span
+          class="profileValue"
+          id="profileOvulation"
+        >
+          -
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      ABOUT APP
+  ===================================================== -->
+
+  <section
+    id="about"
+    class="screen"
+  >
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        About App
+      </div>
+
+
+      <span class="spacer"></span>
+
+    </header>
+
+
+    <div class="infoPage">
+
+      <div class="card infoHero">
+
+        <div class="big">
+          CycleCare
+        </div>
+
+
+        <p>
+          Menstrual Health Tracker
+        </p>
+
+
+        <p>
+          CycleCare is designed to help users record menstrual dates,
+          symptoms, reminders, and cycle history in one simple
+          mobile application.
+        </p>
+
+      </div>
+
+
+      <div class="card tip">
+
+        <h4>
+          App Version
+        </h4>
+
+
+        <p>
+          CycleCare v1.0
+        </p>
+
+      </div>
+
+
+      <div class="card tip">
+
+        <h4>
+          Purpose
+        </h4>
+
+
+        <p>
+          Support personal menstrual tracking and health awareness
+          through an easy-to-use interface.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      ABOUT DEVELOPER
+  ===================================================== -->
+
+  <section
+    id="developer"
+    class="screen"
+  >
+
+
+    <header class="top">
+
+      <button
+        class="iconBtn"
+        type="button"
+        onclick="show('home')"
+        aria-label="Back"
+      >
+        ‹
+      </button>
+
+
+      <div class="title">
+        Lea Desabille Alo
+      </div>
+
+
+      <span class="spacer"></span>
+
+    </header>
+
+
+    <div class="infoPage">
+
+
+      <!-- DEVELOPER PHOTO / PROFILE CARD -->
+
+      <div class="card devCard">
+
+
+        <div class="devPhotoWrap">
+
+          <div class="devAvatar">
+
+            <img
+              id="devPhotoImg"
+              src="image/Screenshot 2026-09-23 214808.png"
+              alt="Lea Desabille Alo"
+            >
+
+            <div
+              class="devPhotoPlaceholder"
+              id="devPhotoPlaceholder"
+            >
+              👤
+            </div>
+
+          </div>
+</div>
+
+
+        <!-- UPDATED DEVELOPER NAME -->
+
+        <div class="devName">
+          Lea Desabille Alo
+        </div>
+
+
+        <div class="devRole">
+          BSIT Student & App Developer
+        </div>
+<div class="devLinks">
+
+          <a
+            class="devLinkBtn"
+            href="https://github.com/yourusername"
+            target="_blank"
+            rel="noopener"
+          >
+            💻 GitHub
+          </a>
+
+
+          <a
+            class="devLinkBtn"
+            href="mailto:youremail@example.com"
+          >
+            ✉️ Email
+          </a>
+
+
+          <a
+            class="devLinkBtn"
+            href="https://facebook.com/yourprofile"
+            target="_blank"
+            rel="noopener"
+          >
+            📘 Facebook
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+          PROJECT / DEVELOPER DETAILS
+      ================================================= -->
+
+      <div class="card profileInfoCard">
+
+
+        <div class="profileSectionTitle">
+
+          <div class="credentialsIcon">
+            ♙
+          </div>
+
+
+          <div>
+
+            <div class="credentialsTitle">
+              About Developer
+            </div>
+
+            <div class="credentialsSubtitle">
+              Personal and project information
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- DEVELOPER NAME -->
+
+        <div class="profileInfoRow">
+
+          <div class="credentialLeft">
+
+            <div class="credentialIcon pinkIcon">
+              👤
+            </div>
+
+
+            <div>
+
+              <span class="profileLabel">
+                Developer Name
+              </span>
+
+              <span class="credentialHint">
+                Full name
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span class="profileValue">
+            Lea Desabille Alo
+          </span>
+
+        </div>
+
+
+        <!-- SCHOOL -->
+
+        <div class="profileInfoRow">
+
+          <div class="credentialLeft">
+
+            <div class="credentialIcon purpleIcon">
+              🏫
+            </div>
+
+
+            <div>
+
+              <span class="profileLabel">
+                School
+              </span>
+
+              <span class="credentialHint">
+                Educational institution
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span class="profileValue">
+            Madridejos Community College
+          </span>
+
+        </div>
+
+
+        <!-- COURSE -->
+
+        <div class="profileInfoRow">
+
+          <div class="credentialLeft">
+
+            <div class="credentialIcon pinkIcon">
+              🎓
+            </div>
+
+
+            <div>
+
+              <span class="profileLabel">
+                Course
+              </span>
+
+              <span class="credentialHint">
+                Degree program
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span class="profileValue">
+            Bachelor of Science in Information Technology (BSIT)
+          </span>
+
+        </div>
+
+
+        <!-- PROJECT -->
+
+        <div class="profileInfoRow">
+
+          <div class="credentialLeft">
+
+            <div class="credentialIcon purpleIcon">
+              📱
+            </div>
+
+
+            <div>
+
+              <span class="profileLabel">
+                Project
+              </span>
+
+              <span class="credentialHint">
+                Application project
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span class="profileValue">
+            CycleCare: Menstrual Health Tracker
+          </span>
+
+        </div>
+
+
+        <!-- TECHNOLOGY -->
+
+        <div class="profileInfoRow">
+
+          <div class="credentialLeft">
+
+            <div class="credentialIcon pinkIcon">
+              ⚙
+            </div>
+
+
+            <div>
+
+              <span class="profileLabel">
+                Technology
+              </span>
+
+              <span class="credentialHint">
+                Development technologies
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span class="profileValue">
+            Offline HTML, CSS, and JavaScript prototype
+          </span>
+
+        </div>
+
+
+        <!-- ROLE -->
+
+        <div class="profileInfoRow">
+
+          <div class="credentialLeft">
+
+            <div class="credentialIcon purpleIcon">
+              💻
+            </div>
+
+
+            <div>
+
+              <span class="profileLabel">
+                Role
+              </span>
+
+              <span class="credentialHint">
+                Project role
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span class="profileValue">
+            App Developer
+          </span>
+
+        </div>
+
+
+        <!-- ACKNOWLEDGEMENTS -->
+
+        <div class="profileInfoRow ovulationRow">
+
+          <div class="credentialLeft">
+
+            <div class="credentialIcon pinkIcon">
+              🙏
+            </div>
+
+
+            <div>
+
+              <span class="profileLabel">
+                Acknowledgements
+              </span>
+
+              <span class="credentialHint">
+                Project information
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span class="profileValue">
+            This project was developed as part of an academic project.
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+      BOTTOM NAVIGATION
+  ===================================================== -->
+
+  <nav
+    class="nav"
+    id="nav"
+    style="display:none"
+  >
+
+
+    <button
+      type="button"
+      data-page="home"
+      onclick="show('home')"
+    >
+
+      <span class="nicon">
+        ⌂
+      </span>
+
+      Home
+
+    </button>
+
+
+    <button
+      type="button"
+      data-page="calendar"
+      onclick="show('calendar')"
+    >
+
+      <span class="nicon">
+        ▦
+      </span>
+
+      Calendar
+
+    </button>
+
+
+    <button
+      type="button"
+      data-page="profile"
+      onclick="show('profile')"
+    >
+
+      <span class="nicon">
+        ♙
+      </span>
+
+      Profile
+
+    </button>
+
+  </nav>
+
+
+  <!-- =====================================================
+      DRAWER SHADE
+  ===================================================== -->
+
+  <div
+    class="drawerShade"
+    id="drawerShade"
+    onclick="closeDrawer()"
+  ></div>
+
+
+  <!-- =====================================================
+      3-BAR DRAWER
+  ===================================================== -->
+
+  <aside
+    class="drawer"
+    id="drawer"
+  >
+
+
+    <div class="drawerHead">
+
+      <div class="drawerBrand">
+        CycleCare
+      </div>
+
+
+      <div class="drawerSub">
+        Menstrual Health Tracker
+      </div>
+
+    </div>
+
+
+    <!-- LANGUAGE -->
+
+    <div
+      class="drawerItem"
+      onclick="toggleLanguageMenu()"
+    >
+
+      <span class="di">
+        🌐
+      </span>
+
+
+      <span>
+        Language
+      </span>
+
+
+      <span
+        class="arrow"
+        id="languageArrow"
+      >
+        ›
+      </span>
+
+    </div>
+
+
+    <!-- LANGUAGE OPTIONS -->
+
+    <div
+      class="langChoice"
+      id="langChoice"
+    >
+
+      <button
+        id="langEn"
+        class="selected"
+        type="button"
+        onclick="setLang('English')"
+      >
+        English
+      </button>
+
+
+      <button
+        id="langBis"
+        type="button"
+        onclick="setLang('Bisaya (Cebuano)')"
+      >
+        Bisaya (Cebuano)
+      </button>
+
+    </div>
+
+
+    <!-- ABOUT APP -->
+
+    <div
+      class="drawerItem"
+      onclick="closeDrawer();show('about')"
+    >
+
+      <span class="di">
+        ⓘ
+      </span>
+
+
+      <span>
+        About App
+      </span>
+
+    </div>
+
+
+    <!-- ABOUT DEVELOPER -->
+
+    <div
+      class="drawerItem"
+      onclick="closeDrawer();show('developer')"
+    >
+
+      <span class="di">
+        👤
+      </span>
+
+
+      <span>
+        About Developer
+      </span>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =====================================================
+      ADD REMINDER MODAL
+  ===================================================== -->
+
+  <div
+    class="modal"
+    id="modal"
+  >
+
+
+    <div class="sheet">
+
+      <h3>
+        Add Reminder
+      </h3>
+
+
+      <input
+        class="input"
+        id="remName"
+        type="text"
+        placeholder="Reminder name"
+        maxlength="60"
+      >
+
+
+      <div class="row">
+
+        <button
+          class="secondary"
+          type="button"
+          onclick="closeModal()"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          class="primary"
+          type="button"
+          onclick="saveReminder()"
+        >
+          Add
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+      TOAST
+  ===================================================== -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  </div>
+
+
+  <!-- =====================================================
+      JAVASCRIPT
+  ===================================================== -->
+
+
+  <script>
+  /* =========================================================
+    SEPARATE NAME FIELDS
+    Combines First + Middle + Last into the existing
+    hidden #loginName field used by script.js.
+  ========================================================= */
+  function prepareLoginName() {
+      const first = document.getElementById("loginFirstName")?.value.trim() || "";
+      const middle = document.getElementById("loginMiddleName")?.value.trim() || "";
+      const last = document.getElementById("loginLastName")?.value.trim() || "";
+
+      const fullName = [first, middle, last]
+          .filter(Boolean)
+          .join(" ");
+
+      const hiddenName = document.getElementById("loginName");
+
+      if (hiddenName) {
+          hiddenName.value = fullName;
+      }
+  }
+
+  /* Keep the hidden full name updated while typing. */
+  document.addEventListener("DOMContentLoaded", function () {
+      ["loginFirstName", "loginMiddleName", "loginLastName"].forEach(function (id) {
+          const field = document.getElementById(id);
+
+          if (field) {
+              field.addEventListener("input", prepareLoginName);
+          }
+      });
+  });
+  </script>
+
+  <script>
+  /* =========================================================
+     ADD SYMPTOM UI
+     Opens a centered/bottom sheet instead of placing the
+     input beside the Add button.
+  ========================================================= */
+  function openSymptomAdd() {
+      const modal = document.getElementById("symptomAddModal");
+      const input = document.getElementById("customSymptomInput");
+
+      if (!modal) return;
+
+      modal.classList.add("show");
+      document.body.style.overflow = "hidden";
+
+      setTimeout(function () {
+          if (input) input.focus();
+      }, 100);
+  }
+
+  function closeSymptomAdd() {
+      const modal = document.getElementById("symptomAddModal");
+      const input = document.getElementById("customSymptomInput");
+
+      if (modal) modal.classList.remove("show");
+      document.body.style.overflow = "";
+
+      if (input) input.value = "";
+  }
+
+  function finishAddingSymptom() {
+      const input = document.getElementById("customSymptomInput");
+
+      if (!input || !input.value.trim()) {
+          if (input) input.focus();
+          return;
+      }
+
+      /* Use the existing CycleCare symptom function so the
+         symptom is added to the current symptom list. */
+      if (typeof addCustomSymptom === "function") {
+          addCustomSymptom();
+      }
+
+      closeSymptomAdd();
+  }
+  </script>
+
+  <script>
+  /* =========================================================
+     PROFILE PHOTO
+     Saves the user's selected photo locally for offline use.
+  ========================================================= */
+  (function () {
+    const PHOTO_KEY = "cyclecare_profile_photo";
+
+    function applyProfilePhoto(photo) {
+      const img = document.getElementById("profilePhotoImg");
+      const placeholder = document.getElementById("profilePhotoPlaceholder");
+      if (!img || !placeholder) return;
+
+      if (photo) {
+        img.src = photo;
+        img.style.display = "block";
+        placeholder.style.display = "none";
+      } else {
+        img.removeAttribute("src");
+        img.style.display = "none";
+        placeholder.style.display = "flex";
+      }
+    }
+
+    function setupProfilePhoto() {
+      const input = document.getElementById("profilePhotoInput");
+      if (!input || input.dataset.ready === "1") {
+        applyProfilePhoto(localStorage.getItem(PHOTO_KEY) || "");
+        return;
+      }
+
+      input.dataset.ready = "1";
+      input.addEventListener("change", function (event) {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+          alert("Please select an image file.");
+          input.value = "";
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const photo = e.target.result;
+          localStorage.setItem(PHOTO_KEY, photo);
+          applyProfilePhoto(photo);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      applyProfilePhoto(localStorage.getItem(PHOTO_KEY) || "");
+    }
+
+    document.addEventListener("DOMContentLoaded", setupProfilePhoto);
+    window.addEventListener("load", setupProfilePhoto);
+  })();
+  </script>
+
+  <script src="script.js"></script>
+
+  <!-- =====================================================
+      OFFLINE / SERVICE WORKER
+      ===================================================== -->
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => {
+        console.log('Service Worker registered successfully.');
+      })
+      .catch(error => {
+        console.error('Service Worker registration failed:', error);
+      });
+  });
+}
+</script>
+
+  </body>
+  </html>

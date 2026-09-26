@@ -1,0 +1,2251 @@
+:root{
+  --pink:#F88BD0;
+  --pink2:#F65AA8;
+  --pinkLight:#FFE4F1;
+
+  --purple:#CE93DB;
+  --purple2:#7650B8;
+  --purpleLight:#EDE1F8;
+
+  --white:#fff;
+  --dark:#424242;
+  --muted:#858585;
+  --line:#E9E5EA;
+  --bg:#FCFBFD;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+  width:100%;
+  height:100%;
+  min-height:100%;
+  font-family:"Segoe UI", Arial, sans-serif;
+  background:#eee;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+
+body{
+  display:flex;
+  justify-content:center;
+  color:var(--dark);
+}
+
+#app{
+  width:100%;
+  max-width:430px;
+  height:100vh;
+  background:var(--bg);
+  position:relative;
+  overflow:hidden;
+}
+
+button{
+  font:inherit;
+  border:0;
+  cursor:pointer;
+}
+
+button:focus{
+  outline:none;
+}
+
+
+/* =========================================================
+   SCREENS
+========================================================= */
+
+.screen{
+  position:absolute;
+  inset:0 0 68px;
+  display:none !important;
+  width:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
+  background:var(--bg);
+  -webkit-overflow-scrolling:touch;
+  box-sizing:border-box;
+  padding-bottom:32px;
+}
+
+.screen.active{
+  display:block !important;
+}
+
+
+/* =========================================================
+   TOP HEADER
+========================================================= */
+
+.top{
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  background:var(--bg);
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+
+.top .title{
+  text-align:center;
+  flex:1;
+  color:var(--pink2);
+  font-weight:800;
+  font-size:18px;
+}
+
+.top .sub{
+  font-size:10px;
+  color:var(--purple2);
+  font-weight:500;
+  margin-top:2px;
+}
+
+.iconBtn{
+  width:34px;
+  height:34px;
+  background:transparent;
+  color:var(--purple2);
+  font-size:21px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.spacer{
+  width:34px;
+  height:34px;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:13px;
+  box-shadow:0 2px 8px rgba(60,30,70,.045);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.primary{
+  background:var(--pink2);
+  color:#fff;
+  border-radius:12px;
+  padding:13px 20px;
+  font-weight:700;
+  width:100%;
+  transition:.15s ease;
+}
+
+.secondary{
+  background:var(--purpleLight);
+  color:var(--purple2);
+  border-radius:12px;
+  padding:13px 20px;
+  font-weight:700;
+  width:100%;
+  transition:.15s ease;
+}
+
+.primary:hover{
+  background:#E94E99;
+}
+
+.secondary:hover{
+  background:#E4D5F3;
+}
+
+.primary:active,
+.secondary:active,
+.homeBtn:active{
+  transform:scale(.99);
+}
+
+
+/* =========================================================
+   SPLASH
+========================================================= */
+
+#splash{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:#fff;
+}
+
+.splashWrap{
+  width:100%;
+  padding:30px;
+}
+
+.logo{
+  width:104px;
+  height:104px;
+  margin:0 auto 22px;
+  border-radius:26px;
+  background:var(--pinkLight);
+  border:2px solid #F3B3D4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.logo svg{
+  width:68px;
+  height:68px;
+}
+
+.splashTitle{
+  font-size:32px;
+  color:var(--pink2);
+  font-weight:800;
+}
+
+.splashSub{
+  font-size:15px;
+  color:var(--purple2);
+  font-weight:600;
+  margin-top:4px;
+}
+
+.splashText{
+  font-size:14px;
+  line-height:1.6;
+  color:#8A70A8;
+  margin:30px 0;
+}
+
+
+/* =========================================================
+   SPLASH IMAGE / LOGO FIX
+========================================================= */
+
+#splash .splashLogo{
+  width:120px !important;
+  height:120px !important;
+  max-width:120px !important;
+  max-height:120px !important;
+  margin:0 auto 16px !important;
+  overflow:hidden !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+#splash .splashLogo img{
+  width:100% !important;
+  height:100% !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  object-fit:contain !important;
+  display:block !important;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.authPage{
+  padding:25px 15px 40px;
+  min-height:calc(100vh - 64px);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+
+.authCard{
+  width:100%;
+  max-width:430px;
+  padding:25px 20px;
+}
+
+.authIcon{
+  width:65px;
+  height:65px;
+  margin:0 auto 15px;
+  border-radius:50%;
+  background:#FDE5F1;
+  color:#F65AA8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+}
+
+.authCard h2{
+  text-align:center;
+  margin:0 0 7px;
+  color:var(--purple2);
+}
+
+.authCard > p{
+  text-align:center;
+  color:#777;
+  font-size:14px;
+  margin:0 0 22px;
+  line-height:1.5;
+}
+
+.authCard label{
+  display:block;
+  margin:13px 0 7px;
+  color:var(--purple2);
+  font-size:13px;
+  font-weight:800;
+}
+
+.authCard .input{
+  width:100%;
+}
+
+.authButton{
+  width:100%;
+  margin-top:22px;
+}
+
+
+/* =========================================================
+   LOGIN FIX
+========================================================= */
+
+#login .authPage{
+  position:relative;
+  z-index:2;
+}
+
+#login .authIcon{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  font-size:42px !important;
+  line-height:1 !important;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.input{
+  width:100%;
+  height:43px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:0 12px;
+  margin-bottom:10px;
+  background:#fff;
+  color:var(--dark);
+  outline:none;
+  font-size:13px;
+  transition:.15s ease;
+}
+
+.input::placeholder{
+  color:#aaa;
+}
+
+.input:focus{
+  border-color:var(--pink2);
+  box-shadow:0 0 0 2px rgba(246,90,168,.10);
+}
+
+select.input{
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   OVULATION INFORMATION
+========================================================= */
+
+.ovulationBox{
+  margin-top:18px;
+  margin-bottom:12px;
+  padding:14px;
+  border-radius:12px;
+  background:#FDECF5;
+  border:1px solid #F4C7DF;
+}
+
+.ovulationTitle{
+  color:var(--purple2);
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.ovulationText{
+  color:#666;
+  font-size:13px;
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   DRAWER
+========================================================= */
+
+.drawerShade{
+  position:absolute;
+  inset:0;
+  background:rgba(30,20,35,.35);
+  display:none;
+  z-index:40;
+}
+
+.drawerShade.open{
+  display:block;
+}
+
+.drawer{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:78%;
+  max-width:310px;
+  background:#fff;
+  z-index:45;
+  transform:translateX(-100%);
+  transition:.22s ease;
+  padding:18px 14px;
+  box-shadow:4px 0 18px rgba(50,30,60,.15);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+.drawer.open{
+  transform:translateX(0);
+}
+
+.drawerHead{
+  padding:10px 8px 18px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:8px;
+}
+
+.drawerBrand{
+  font-size:21px;
+  font-weight:800;
+  color:var(--pink2);
+}
+
+.drawerSub{
+  font-size:10px;
+  color:var(--purple2);
+  margin-top:3px;
+}
+
+.drawerItem{
+  min-height:45px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 10px;
+  border-radius:10px;
+  color:var(--dark);
+  font-size:13px;
+  font-weight:600;
+  margin:3px 0;
+  transition:.15s;
+}
+
+.drawerItem:hover{
+  background:var(--pinkLight);
+}
+
+.drawerItem:active{
+  background:var(--purpleLight);
+}
+
+.drawerItem .di{
+  width:25px;
+  min-width:25px;
+  text-align:center;
+  font-size:19px;
+  color:var(--purple2);
+}
+
+.drawerItem .arrow{
+  margin-left:auto;
+  color:#aaa;
+  font-size:17px;
+}
+
+
+/* =========================================================
+   LANGUAGE MENU
+========================================================= */
+
+.langChoice{
+  display:none;
+  flex-direction:column;
+  gap:7px;
+  padding:8px 10px 10px 47px;
+}
+
+.langChoice.open{
+  display:flex;
+}
+
+.langChoice button{
+  width:100%;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:9px;
+  padding:8px 10px;
+  font-size:11px;
+  color:var(--purple2);
+  text-align:left;
+}
+
+.langChoice button:hover{
+  background:var(--pinkLight);
+}
+
+.langChoice button.selected{
+  background:var(--pinkLight);
+  border-color:var(--pink2);
+  color:var(--purple2);
+  font-weight:700;
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+#home{
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  -webkit-overflow-scrolling:touch;
+  box-sizing:border-box;
+}
+
+.homePad{
+  padding:10px 15px 20px;
+}
+
+#home .homePad{
+  padding-bottom:100px !important;
+}
+
+#home .top{
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.nextCard{
+  padding:14px 15px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin-bottom:13px;
+}
+
+.periodIcon{
+  width:61px;
+  height:61px;
+  border-radius:50%;
+  background:var(--pinkLight);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.periodIcon svg{
+  width:38px;
+  height:38px;
+}
+
+.nextSmall{
+  font-size:12px;
+  color:#666;
+}
+
+.nextDate{
+  font-size:19px;
+  color:var(--pink2);
+  font-weight:800;
+  margin:3px 0;
+}
+
+.nextLeft{
+  font-size:12px;
+  color:#666;
+}
+
+.homeBtn{
+  height:45px;
+  width:100%;
+  margin-bottom:8px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  gap:13px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.homeBtn.pink{
+  background:var(--pinkLight);
+  color:var(--purple2);
+}
+
+.homeBtn.purple{
+  background:var(--purpleLight);
+  color:var(--purple2);
+}
+
+.homeBtn .ico{
+  font-size:21px;
+  width:25px;
+  text-align:center;
+}
+
+.sectionTitle{
+  font-size:14px;
+  font-weight:800;
+  color:var(--purple2);
+  margin:17px 2px 9px;
+}
+
+.badge{
+  font-size:10px;
+  background:var(--pink);
+  color:#fff;
+  padding:3px 7px;
+  border-radius:20px;
+}
+
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.contentPad{
+  padding:0 15px 20px;
+}
+
+.monthRow{
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.monthRow b{
+  font-size:14px;
+  color:var(--purple2);
+}
+
+.monthArrow{
+  background:transparent;
+  color:var(--purple2);
+  font-size:25px;
+  width:35px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.monthArrow:active{
+  transform:scale(.9);
+}
+
+.week{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  text-align:center;
+  font-size:10px;
+  font-weight:700;
+  color:#777;
+  margin-bottom:3px;
+}
+
+.cal{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+}
+
+
+/* =========================================================
+   CALENDAR DAY
+========================================================= */
+
+.day{
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  position:relative;
+  border-radius:50%;
+  color:#555;
+  transition:.15s ease;
+}
+
+.dayNumber{
+  position:relative;
+  z-index:2;
+}
+
+
+/* =========================================================
+   PERIOD
+========================================================= */
+
+.day.period{
+  background:var(--pink);
+  color:#fff;
+  font-weight:800;
+  box-shadow:0 2px 5px rgba(246,90,168,.18);
+}
+
+
+/* =========================================================
+   OVULATION
+========================================================= */
+
+.day.ovulation{
+  background:var(--purple);
+  color:#fff;
+  font-weight:800;
+  box-shadow:0 2px 5px rgba(118,80,184,.18);
+}
+
+
+/* =========================================================
+   TODAY
+========================================================= */
+
+.day.today{
+  border:2px solid var(--pink2);
+  font-weight:800;
+}
+
+.day.today:not(.period):not(.ovulation){
+  background:#fff;
+}
+
+
+/* =========================================================
+   TODAY + PERIOD
+========================================================= */
+
+.day.period.today{
+  background:var(--pink);
+  color:#fff;
+  border:2px solid var(--pink2);
+}
+
+
+/* =========================================================
+   TODAY + OVULATION
+========================================================= */
+
+.day.ovulation.today{
+  background:var(--purple);
+  color:#fff;
+  border:2px solid var(--pink2);
+}
+
+
+/* =========================================================
+   EMPTY CALENDAR CELLS
+========================================================= */
+
+.day.empty{
+  background:transparent;
+  border:none;
+  box-shadow:none;
+}
+
+
+/* =========================================================
+   SYMPTOM CALENDAR MARKER
+========================================================= */
+
+.calendarSymptomMark{
+  position:absolute;
+  bottom:1px;
+  left:40%;
+  transform:translateX(-50%);
+  font-size:8px;
+  line-height:1;
+  color:#F65AA8;
+  font-weight:800;
+  pointer-events:none;
+  z-index:3;
+}
+
+
+/* =========================================================
+   REMINDER CALENDAR MARKER
+========================================================= */
+
+.calendarReminderMark{
+  position:absolute;
+  bottom:1px;
+  left:64%;
+  transform:translateX(-50%);
+  font-size:8px;
+  line-height:1;
+  color:#7650B8;
+  font-weight:800;
+  pointer-events:none;
+  z-index:3;
+}
+
+
+/* =========================================================
+   MARKERS ON PERIOD / OVULATION DAYS
+========================================================= */
+
+.day.period .calendarSymptomMark,
+.day.period .calendarReminderMark,
+.day.ovulation .calendarSymptomMark,
+.day.ovulation .calendarReminderMark{
+  color:#fff;
+}
+
+
+/* =========================================================
+   CALENDAR MARKED DAYS
+========================================================= */
+
+.day.symptomDay,
+.day.reminderDay{
+  cursor:pointer;
+}
+
+.day.symptomDay:hover,
+.day.reminderDay:hover{
+  filter:brightness(.97);
+}
+
+
+/* =========================================================
+   CALENDAR LEGEND
+========================================================= */
+
+.legend{
+  padding:11px 13px;
+  margin-top:10px;
+}
+
+.legendRow{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  margin:5px 0;
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  border:1px solid #ddd;
+  flex-shrink:0;
+}
+
+.dot.p{
+  background:var(--pink);
+  border:0;
+}
+
+.dot.o{
+  background:var(--purple);
+  border:0;
+}
+
+.dot.t{
+  background:#fff;
+}
+
+.dot.s{
+  background:#F65AA8;
+  border:0;
+}
+
+.dot.r{
+  background:#7650B8;
+  border:0;
+}
+
+
+/* =========================================================
+   SYMPTOMS
+========================================================= */
+
+.symCard{
+  margin:0 15px;
+  padding:5px 13px 8px;
+}
+
+.prompt{
+  text-align:center;
+  font-size:11px;
+  font-weight:700;
+  padding:9px 0;
+}
+
+.symRow{
+  min-height:43px;
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid #f0edf1;
+  gap:9px;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.symRow:last-child{
+  border-bottom:0;
+}
+
+.symRow:hover{
+  background:#fffafd;
+}
+
+.symIcon{
+  font-size:19px;
+  width:24px;
+  text-align:center;
+}
+
+.symName{
+  font-size:12px;
+  flex:1;
+}
+
+.check{
+  width:17px;
+  height:17px;
+  border:1.5px solid #aaa;
+  border-radius:3px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:12px;
+  flex-shrink:0;
+}
+
+.check.on{
+  background:var(--pink2);
+  border-color:var(--pink2);
+}
+
+.symAddRow{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:12px 0 4px;
+}
+
+.symAddInput{
+  flex:1;
+  height:38px;
+  margin:0;
+  font-size:12px;
+}
+
+.symAddBtn{
+  height:38px;
+  padding:0 16px;
+  margin:0;
+  white-space:nowrap;
+}
+
+.symRemove{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#B85A7A;
+  background:#FDECF2;
+  font-size:13px;
+  line-height:1;
+  flex-shrink:0;
+  cursor:pointer;
+}
+
+.symRemove:hover{
+  background:#FBD9E5;
+}
+
+.saveWrap{
+  padding:14px 15px;
+}
+
+.saveWrap .primary{
+  height:42px;
+}
+
+
+/* =========================================================
+   REMINDERS
+========================================================= */
+
+.remList{
+  padding:3px 15px;
+}
+
+.rem{
+  padding:11px 12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:9px;
+}
+
+.remIcon{
+  width:30px;
+  font-size:23px;
+  text-align:center;
+  flex-shrink:0;
+}
+
+.remInfo{
+  flex:1;
+  min-width:0;
+}
+
+.remTitle{
+  font-size:13px;
+  font-weight:700;
+}
+
+.remSub{
+  font-size:10px;
+  color:#777;
+  margin-top:3px;
+}
+
+.switch{
+  width:34px;
+  height:20px;
+  border-radius:20px;
+  background:#ddd;
+  padding:2px;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:.2s ease;
+}
+
+.switch i{
+  display:block;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:#fff;
+  transition:.2s;
+}
+
+.switch.on{
+  background:var(--pink2);
+}
+
+.switch.on i{
+  margin-left:14px;
+}
+
+.addRem{
+  min-height:91px;
+  border:1.5px dashed #B9A0D1;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:var(--purple2);
+  font-size:11px;
+  margin-top:4px;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.addRem:hover{
+  background:#FCF8FF;
+}
+
+.addRem b{
+  font-size:27px;
+  font-weight:400;
+}
+
+
+/* =========================================================
+   TRACK CYCLE
+========================================================= */
+
+#track .contentPad{
+  padding-top:10px;
+}
+
+#track .card{
+  border-radius:16px;
+}
+
+#track .primary{
+  margin-top:2px;
+}
+
+#track .input{
+  margin-bottom:0;
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.list{
+  padding:0 15px 20px;
+}
+
+.history{
+  padding:13px;
+  margin-bottom:9px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.historyIcon{
+  width:30px;
+  min-width:30px;
+  font-size:24px;
+  color:var(--pink2);
+  text-align:center;
+}
+
+.historyMain{
+  flex:1;
+  min-width:0;
+  font-size:12px;
+  font-weight:700;
+}
+
+.historySub{
+  font-size:10px;
+  color:#777;
+  margin-top:3px;
+  line-height:1.4;
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
+
+.profileCard{
+  padding:17px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin:12px 15px 14px;
+  background:linear-gradient(
+    135deg,
+    #fff 0%,
+    #FDF3FA 100%
+  );
+}
+
+.avatar{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:var(--purpleLight);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:29px;
+  flex-shrink:0;
+  box-shadow:0 3px 10px rgba(118,80,184,.10);
+}
+
+.profileName{
+  font-weight:800;
+  color:var(--purple2);
+  font-size:17px;
+}
+
+.profileSubtitle{
+  font-size:11px;
+  color:#888;
+  margin-top:4px;
+}
+
+
+/* =========================================================
+   PROFILE CREDENTIALS
+========================================================= */
+
+.profileInfoCard{
+  margin:0 15px 20px;
+  padding:0;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+.profileSectionTitle{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:18px 16px;
+  background:linear-gradient(
+    135deg,
+    #FDE5F1,
+    #F1E8FA
+  );
+  border-bottom:1px solid #ead8eb;
+}
+
+.credentialsIcon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:#fff;
+  color:var(--pink2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  box-shadow:0 3px 10px rgba(118,80,184,.10);
+  flex-shrink:0;
+}
+
+.credentialsTitle{
+  color:var(--purple2);
+  font-size:16px;
+  font-weight:800;
+}
+
+.credentialsSubtitle{
+  color:#888;
+  font-size:12px;
+  margin-top:3px;
+}
+
+.profileInfoRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:14px 16px;
+  border-bottom:1px solid #f0eaf2;
+  background:#fff;
+}
+
+.profileInfoRow:last-child{
+  border-bottom:none;
+}
+
+.credentialLeft{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+  flex:1;
+}
+
+.credentialIcon{
+  width:38px;
+  height:38px;
+  min-width:38px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+}
+
+.pinkIcon{
+  background:#FDE5F1;
+}
+
+.purpleIcon{
+  background:#EEE6FA;
+}
+
+.credentialLeft > div:last-child{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.profileLabel{
+  color:#555;
+  font-size:13px;
+  font-weight:700;
+}
+
+.credentialHint{
+  color:#aaa;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.profileValue{
+  color:var(--purple2);
+  font-size:12px;
+  font-weight:800;
+  text-align:right;
+  max-width:145px;
+  word-break:break-word;
+  flex-shrink:0;
+}
+
+.ovulationRow{
+  background:linear-gradient(
+    90deg,
+    #fff,
+    #FDF4FA
+  );
+}
+
+.ovulationRow .profileValue{
+  color:var(--pink2);
+}
+
+
+/* =========================================================
+   ABOUT DEVELOPER
+========================================================= */
+
+.devCard{
+  padding:26px 20px 22px;
+  text-align:center;
+}
+
+.devPhotoWrap{
+  position:relative;
+  width:104px;
+  height:104px;
+  margin:0 auto 14px;
+}
+
+.devAvatar{
+  width:104px;
+  height:104px;
+  border-radius:50%;
+  background:var(--purpleLight);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 3px 10px rgba(118,80,184,.14);
+  border:3px solid #fff;
+  outline:1px solid #ead8eb;
+}
+
+.devAvatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
+}
+
+.devPhotoPlaceholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:44px;
+  color:var(--purple2);
+}
+
+.devPhotoBtn{
+  position:absolute;
+  right:-2px;
+  bottom:-2px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:var(--pink2);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  box-shadow:0 3px 8px rgba(246,90,168,.35);
+  cursor:pointer;
+  border:2px solid #fff;
+}
+
+.devPhotoBtn input[type="file"]{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  width:100%;
+  height:100%;
+  cursor:pointer;
+}
+
+.devName{
+  font-size:19px;
+  font-weight:800;
+  color:var(--purple2);
+  margin-bottom:2px;
+}
+
+.devRole{
+  font-size:12px;
+  color:#888;
+  margin-bottom:14px;
+}
+
+.devPhotoActions{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.devPhotoActionBtn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:9px 15px;
+  border-radius:999px;
+  background:var(--pinkLight);
+  color:var(--purple2);
+  font-weight:700;
+  font-size:12px;
+  border:none;
+  cursor:pointer;
+  position:relative;
+}
+
+.devPhotoActionBtn.remove{
+  background:#fdeaea;
+  color:#a33a3a;
+}
+
+.devLinks{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+}
+
+.devLinkBtn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:9px 15px;
+  border-radius:999px;
+  background:var(--purpleLight);
+  color:var(--purple2);
+  font-weight:700;
+  font-size:12px;
+  text-decoration:none;
+  border:none;
+}
+
+
+/* =========================================================
+   ABOUT / INFORMATION
+========================================================= */
+
+.infoPage{
+  padding:12px 15px 20px;
+}
+
+.infoHero{
+  padding:18px;
+  text-align:center;
+  margin-bottom:12px;
+}
+
+.infoHero .big{
+  font-size:31px;
+  color:var(--pink2);
+  font-weight:800;
+}
+
+.infoHero p{
+  font-size:12px;
+  color:#777;
+  line-height:1.55;
+  margin-top:7px;
+}
+
+.tip{
+  padding:13px;
+  margin-bottom:9px;
+}
+
+.tip h4{
+  color:var(--purple2);
+  font-size:13px;
+  margin-bottom:5px;
+}
+
+.tip p{
+  font-size:11px;
+  line-height:1.5;
+  color:#666;
+}
+
+
+/* =========================================================
+   MENSTRUAL TIPS
+========================================================= */
+
+.clickableTip{
+  padding:0 !important;
+  overflow:hidden;
+  cursor:pointer;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.clickableTip:active{
+  transform:scale(.98);
+}
+
+.clickableTip:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(118,80,184,.14);
+}
+
+.tipImagePreview{
+  width:100%;
+  height:155px;
+  overflow:hidden;
+  background:#f3eef9;
+}
+
+.tipImagePreview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.tipText{
+  padding:16px 18px 18px;
+}
+
+.tipText h4{
+  margin:0 0 8px;
+  color:var(--purple2);
+  font-size:19px;
+  font-weight:800;
+}
+
+.tipText p{
+  margin:0;
+  color:#4b4552;
+  line-height:1.55;
+  font-size:15px;
+}
+
+.readTip{
+  display:block;
+  margin-top:12px;
+  color:#7650B8;
+  font-size:13px;
+  font-weight:800;
+}
+
+
+/* =========================================================
+   TIP DETAIL POPUP
+========================================================= */
+
+.tipModal{
+  position:fixed;
+  inset:0;
+  background:rgba(30,20,40,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:9999;
+  backdrop-filter:blur(4px);
+}
+
+.tipModal.show{
+  display:flex;
+}
+
+.tipModalBox{
+  width:100%;
+  max-width:430px;
+  max-height:90vh;
+  background:#fff;
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  animation:tipPopup .25s ease;
+}
+
+@keyframes tipPopup{
+  from{
+    opacity:0;
+    transform:translateY(20px) scale(.97);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.tipModalImage{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  display:block;
+}
+
+.tipClose{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.94);
+  color:#7650B8;
+  font-size:28px;
+  line-height:40px;
+  cursor:pointer;
+  z-index:5;
+  box-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+
+.tipModalContent{
+  padding:22px;
+  text-align:center;
+}
+
+.tipModalIcon{
+  font-size:38px;
+  margin-bottom:5px;
+}
+
+.tipModalContent h2{
+  margin:4px 0 10px;
+  color:#7650B8;
+  font-size:23px;
+}
+
+.tipModalContent p{
+  margin:0 0 20px;
+  color:#4b4552;
+  font-size:15px;
+  line-height:1.65;
+}
+
+.tipModalContent .primary{
+  width:100%;
+}
+
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+.quizLevelTabs{
+  display:flex;
+  gap:8px;
+  margin:0 0 14px;
+}
+
+.quizLevelTab{
+  flex:1;
+  padding:10px 6px;
+  border:1px solid #E9E5EA;
+  border-radius:12px;
+  background:#fff;
+  color:#7650B8;
+  font-size:12px;
+  font-weight:700;
+  text-align:center;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.quizLevelTab:hover{
+  background:#FDECF5;
+}
+
+.quizLevelTab.active{
+  background:linear-gradient(
+    135deg,
+    #F65AA8,
+    #7650B8
+  );
+  border-color:transparent;
+  color:#fff;
+}
+
+.quizLevelTabCount{
+  display:block;
+  margin-top:3px;
+  font-size:10px;
+  font-weight:600;
+  opacity:.8;
+}
+
+.quizFrame{
+  animation:quizFrameIn .2s ease;
+}
+
+@keyframes quizFrameIn{
+  from{
+    opacity:0;
+    transform:translateX(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+.quizFrameProgress{
+  font-size:11px;
+  font-weight:700;
+  color:#999;
+  text-align:center;
+  margin-bottom:8px;
+}
+
+.quizFrameNav{
+  display:flex;
+  gap:10px;
+  margin-top:4px;
+}
+
+.quizFrameNav button{
+  flex:1;
+  margin:0;
+}
+
+.quizFrameNav button:disabled{
+  opacity:.4;
+  cursor:default;
+}
+
+
+.quizLevelTitle{
+  padding:15px 16px;
+  margin:0 0 10px;
+  border-radius:15px;
+  background:linear-gradient(
+    135deg,
+    #FDE5F1,
+    #F1E8FA
+  );
+  color:#7650B8;
+  font-size:18px;
+  font-weight:800;
+  text-align:center;
+}
+
+.quizLevelSubtitle{
+  font-size:11px;
+  color:#777;
+  font-weight:500;
+  margin-top:4px;
+}
+
+.quizQuestion{
+  padding:15px;
+  margin-bottom:10px;
+}
+
+.quizQuestionNumber{
+  font-size:10px;
+  color:#F65AA8;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.quizQuestion h4{
+  font-size:14px;
+  color:#7650B8;
+  margin-bottom:11px;
+  line-height:1.5;
+}
+
+.quizOption{
+  width:100%;
+  padding:11px 12px;
+  margin:5px 0;
+  border:1px solid #E9E5EA;
+  border-radius:10px;
+  background:#fff;
+  color:#4b4552;
+  text-align:left;
+  font-size:12px;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.quizOption:hover{
+  background:#FDECF5;
+}
+
+.quizOption.selected{
+  background:#FFE4F1;
+  border-color:#F65AA8;
+  color:#7650B8;
+  font-weight:700;
+}
+
+.quizOption.correct{
+  background:#E8F7EC;
+  border-color:#62B878;
+  color:#27733B;
+}
+
+.quizOption.wrong{
+  background:#FDEAEA;
+  border-color:#E07A7A;
+  color:#A33A3A;
+}
+
+.quizOption:disabled{
+  cursor:default;
+}
+
+
+/* =========================================================
+   OLD QUIZ COMPATIBILITY
+========================================================= */
+
+.quizOpt{
+  width:100%;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#fff;
+  text-align:left;
+  font-size:11px;
+  margin:5px 0;
+}
+
+.quizOpt.selected{
+  background:var(--pinkLight);
+  border-color:var(--pink2);
+  color:var(--purple2);
+  font-weight:700;
+}
+
+
+/* =========================================================
+   QUIZ ACTIONS
+========================================================= */
+
+.quizActions{
+  padding:15px;
+  margin:14px 0;
+}
+
+.quizActions button{
+  margin-bottom:9px;
+}
+
+.quizActions button:last-child{
+  margin-bottom:0;
+}
+
+
+/* =========================================================
+   QUIZ SCORE
+========================================================= */
+
+.quizScoreCard{
+  display:none;
+  padding:20px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.quizScoreCard.show{
+  display:block;
+}
+
+.quizScoreIcon{
+  font-size:42px;
+  margin-bottom:5px;
+}
+
+.quizScoreCard h2{
+  color:#7650B8;
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.quizTotalScore{
+  color:#F65AA8;
+  font-size:31px;
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.quizScoreMessage{
+  color:#777;
+  font-size:12px;
+  line-height:1.5;
+  margin-bottom:16px;
+}
+
+.quizScoreRows{
+  border-top:1px solid #eee;
+}
+
+.quizScoreRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:11px 0;
+  border-bottom:1px solid #eee;
+  font-size:12px;
+}
+
+.quizScoreRow span{
+  color:#555;
+}
+
+.quizScoreRow strong{
+  color:#7650B8;
+}
+
+
+/* =========================================================
+   DEVELOPER
+========================================================= */
+
+.devBanner{
+  margin:0 15px 12px;
+  padding:0 0 18px;
+  text-align:center;
+  overflow:hidden;
+}
+
+.devBanner::before{
+  content:"";
+  display:block;
+  height:82px;
+  background:linear-gradient(
+    120deg,
+    var(--pink) 0%,
+    var(--purple) 100%
+  );
+}
+
+.devAvatarWrap{
+  width:86px;
+  height:86px;
+  border-radius:50%;
+  background:#fff;
+  padding:4px;
+  margin:-43px auto 10px;
+  box-shadow:0 2px 8px rgba(60,30,70,.15);
+}
+
+.devAvatar{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+}
+
+.devName{
+  font-weight:800;
+  color:var(--purple2);
+  font-size:16px;
+}
+
+.devRole{
+  font-size:11px;
+  color:#777;
+  margin-top:3px;
+}
+
+.devEmail{
+  font-size:10px;
+  color:#999;
+  margin-top:2px;
+}
+
+
+/* =========================================================
+   BOTTOM NAVIGATION
+========================================================= */
+
+.nav{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:68px;
+  background:#fff;
+  border-top:1px solid #eee;
+  display:flex;
+  z-index:20;
+  box-shadow:0 -2px 8px rgba(60,30,70,.04);
+}
+
+.nav button{
+  flex:1;
+  background:#fff;
+  color:var(--purple2);
+  font-size:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  font-weight:600;
+  transition:.15s ease;
+}
+
+.nav button .nicon{
+  font-size:20px;
+}
+
+.nav button.active{
+  color:var(--pink2);
+}
+
+.nav button.active .nicon{
+  color:var(--pink2);
+}
+
+.nav button:active{
+  transform:scale(.96);
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+  position:absolute;
+  inset:0;
+  background:rgba(30,20,35,.4);
+  display:none;
+  align-items:flex-end;
+  z-index:50;
+}
+
+.modal.open{
+  display:flex;
+}
+
+.sheet{
+  background:#fff;
+  width:100%;
+  border-radius:20px 20px 0 0;
+  padding:20px;
+  box-shadow:0 -8px 25px rgba(40,25,50,.15);
+}
+
+.sheet h3{
+  color:var(--purple2);
+  font-size:16px;
+  margin-bottom:12px;
+}
+
+.row{
+  display:flex;
+  gap:8px;
+}
+
+.row > *{
+  flex:1;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+  position:absolute;
+  left:50%;
+  bottom:82px;
+  transform:translateX(-50%);
+  background:#4f386b;
+  color:#fff;
+  padding:9px 16px;
+  border-radius:20px;
+  font-size:11px;
+  display:none;
+  z-index:60;
+  white-space:nowrap;
+  max-width:90%;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.screen::-webkit-scrollbar,
+.drawer::-webkit-scrollbar{
+  width:4px;
+}
+
+.screen::-webkit-scrollbar-track,
+.drawer::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.screen::-webkit-scrollbar-thumb,
+.drawer::-webkit-scrollbar-thumb{
+  background:#ddd;
+  border-radius:10px;
+}
+
+
+/* =========================================================
+   SMALL SCREEN
+========================================================= */
+
+@media (max-height:700px){
+
+  .authPage{
+    padding-top:15px;
+    padding-bottom:25px;
+  }
+
+  .authCard{
+    padding:20px 18px;
+  }
+
+  .authIcon{
+    width:55px;
+    height:55px;
+    font-size:29px;
+    margin-bottom:10px;
+  }
+
+  .authCard > p{
+    margin-bottom:16px;
+  }
+
+  .authCard label{
+    margin-top:10px;
+  }
+
+  .input{
+    height:40px;
+  }
+
+  .day{
+    height:35px;
+  }
+
+  .profileInfoRow{
+    padding:12px 14px;
+  }
+
+  .tipImagePreview{
+    height:140px;
+  }
+
+  .tipModalImage{
+    height:210px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL WIDTH
+========================================================= */
+
+@media(max-width:380px){
+
+  .tipImagePreview{
+    height:135px;
+  }
+
+  .tipModalImage{
+    height:200px;
+  }
+
+  .tipText{
+    padding:14px 15px 16px;
+  }
+
+  .tipText h4{
+    font-size:17px;
+  }
+
+  .tipText p{
+    font-size:13px;
+  }
+
+  .quizQuestion h4{
+    font-size:13px;
+  }
+
+  .quizOption{
+    font-size:11px;
+  }
+
+  .profileValue{
+    max-width:125px;
+    font-size:11px;
+  }
+
+  .profileLabel{
+    font-size:12px;
+  }
+
+  .credentialHint{
+    font-size:9px;
+  }
+}
